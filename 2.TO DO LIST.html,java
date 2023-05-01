@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do App</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Enter task...">
+    <button type="submit">Add Task</button>
+  </form>
+  <ul id="task-list"></ul>
+  <script src="app.js"></script>
+</body>
+</html>
+ <link-javascript>
+$(document).ready(function() {
+  $('#task-form').submit(function(event) {
+    event.preventDefault();
+    var task = $('#task-input').val();
+    $.ajax({
+      url: 'add_task.php',
+      method: 'POST',
+      data: {task: task},
+      success: function(response) {
+        $('#task-list').append('<li>' + task + '</li>');
+        $('#task-input').val('');
+      }
+    });
+  });
+});
